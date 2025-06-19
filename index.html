@@ -14,18 +14,16 @@
         const img = document.querySelector("img");
         const searchInput = document.querySelector("input");
         const submit = document.querySelector("button");
-        submit.addEventListener("click", (event)=> {
-            let str = `https://api.giphy.com/v1/gifs/translate?api_key=uMWsSToUViwl5M2bAJ1pjTPnNcjlXm6o&s=${searchInput.value}`;
-            fetch(str, {mode: "cors"})
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(response) {
-                console.log(response);
-                img.src = response.data.images.original.url;
-            })
+        submit.addEventListener("click", getData);
+
+        async function getData(event) {
             event.preventDefault();
-        })
+            let str = "https://api.giphy.com/v1/gifs/translate?api_key=uMWsSToUViwl5M2bAJ1pjTPnNcjlXm6o&s=" + searchInput.value;
+            const  response = await fetch(str, {mode:"cors"});
+            const value = await response.json();
+            img.src = value.data.images.original.url;   
+        }
+
 </script>
 
     </script>
